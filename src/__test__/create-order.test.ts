@@ -45,6 +45,9 @@ beforeAll(async () => {
   });
 
   console.log("1 customer successfully created!");
+
+  const allCustomers = await prisma.customer.findMany();
+  console.log(allCustomers);
 });
 
 afterAll(async () => {
