@@ -86,7 +86,7 @@ function dummyDataStringByType(typeStr: string) {
 
 function generateFactoryFileString(typeMap: EntityMap) {
   return `import * as faker from "faker"
-  import { createFactory } from ".";
+  import { createFactory } from "./createFactory";
   import { Prisma, ${modelName} } from "@prisma/client";
 
   export const ${modelName}DefaultAttributes: Prisma.${modelName}CreateInput = {
@@ -98,6 +98,6 @@ function generateFactoryFileString(typeMap: EntityMap) {
   export const ${modelName}Factory = createFactory<
     Prisma.${modelName}CreateInput,
     ${modelName}
-  >("${modelName}", ${modelName}DefaultAttributes);
+  >("${modelName.toLowerCase()}", ${modelName}DefaultAttributes);
   `;
 }

@@ -1,13 +1,16 @@
 import { createOrder, Customer, OrderInput } from "../create-order";
+import { CustomerFactory } from "./factory/Customer";
 import prisma from "../client";
 
 beforeAll(async () => {
   await prisma.category.createMany({
     data: [
       {
+        id: 1,
         name: "Wand",
       },
       {
+        id: 2,
         name: "Broomstick",
       },
     ],
@@ -36,18 +39,19 @@ beforeAll(async () => {
 
   console.log("2 products successfully created");
 
-  await prisma.customer.create({
-    data: {
-      name: "Harry Potter",
-      email: "harry@hogwarts.io",
-      address: "4 Privet Drive",
-    },
-  });
+  // await prisma.customer.create({
+  //   data: {
+  //     name: "Harry Potter",
+  //     email: "harry@hogwarts.io",
+  //     address: "4 Privet Drive",
+  //   },
+  // });
+
+  await CustomerFactory.create({});
+
+  // console.log(dummyCustomer);
 
   console.log("1 customer successfully created!");
-
-  const allCustomers = await prisma.customer.findMany();
-  console.log(allCustomers);
 });
 
 afterAll(async () => {

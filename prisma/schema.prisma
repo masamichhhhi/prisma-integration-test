@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -52,7 +52,7 @@ model OrderDetails {
   productId Int
   order     CustomerOrder @relation(fields: [orderId], references: [id])
   orderId   Int
-  total     Decimal
+  total     Int
   quantity  Int
 }
 
@@ -62,7 +62,7 @@ model Product {
   id           Int            @id @default(autoincrement())
   name         String
   description  String
-  price        Decimal
+  price        Int
   sku          Int
   orderDetails OrderDetails[]
   category     Category       @relation(fields: [categoryId], references: [id])

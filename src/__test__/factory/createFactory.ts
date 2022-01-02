@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
-import prisma from "../../client";
+import client from "../../client";
 
 type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
 type FilterStartsWith<
   Union,
   Prefix extends string
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = Union extends `${Prefix}${infer _Property}` ? never : Union;
 
 type ModelName = FilterStartsWith<keyof Awaited<PrismaClient>, "$">;
@@ -29,7 +30,7 @@ function buildPrismaIncludeFromAttrs(attrs: Record<string, any>) {
   return hasInclue ? include : undefined;
 }
 
-export const createFacory = <CreateInputType, ModelType>(
+export const createFactory = <CreateInputType, ModelType>(
   modelName: ModelName,
   defaultAttributes: CreateInputType
 ) => {
@@ -46,10 +47,14 @@ export const createFacory = <CreateInputType, ModelType>(
 
       if (includes) options.include = includes;
 
-      return await prisma[modelName as string].create({
+      const result = await (client[modelName] as any).create({
         data: { ...obj },
         ...options,
       });
+
+      console.log(result);
+
+      return result;
     },
   };
 };

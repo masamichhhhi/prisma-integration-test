@@ -1,5 +1,5 @@
 import * as faker from "faker";
-import { createFactory } from ".";
+import { createFactory } from "./createFactory";
 import { Prisma, User } from "@prisma/client";
 
 export const UserDefaultAttributes: Prisma.UserCreateInput = {
@@ -9,6 +9,6 @@ export const UserDefaultAttributes: Prisma.UserCreateInput = {
 };
 
 export const UserFactory = createFactory<Prisma.UserCreateInput, User>(
-  "User",
+  "user",
   UserDefaultAttributes
 );
